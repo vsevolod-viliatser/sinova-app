@@ -4,10 +4,11 @@ import { useDogBreeds, useCatBreeds, useAllBreeds } from "@/hooks/useBreeds";
 import BreedCard from "@/components/BreedCard";
 import shuffle from "@/adds/shuffle";
 import AutoComplete from "@/components/AutoComplete";
+import { Breed } from "@/types/breed";
 export default function HomePage() {
   const { data: dogs, isLoading: dogsLoading, error: dogsError } = useDogBreeds();
   const { data: cats, isLoading: catsLoading, error: catsError } = useCatBreeds();
-  const {data:allBreeds,isLoading: allLoading, error: allError}=useAllBreeds()
+  const {data:allBreeds}=useAllBreeds()
   if (dogsLoading || catsLoading) {
     return <p className="p-4">Loading breeds...</p>;
   }
@@ -16,7 +17,7 @@ export default function HomePage() {
     return <p className="p-4 text-red-500">Failed to load breeds.</p>;
   }
 
-  let breeds: any[] = [];
+  let breeds: Breed[] = [];
 
   if (dogs && cats) {
     breeds = shuffle([...dogs, ...cats]).slice(0, 6);

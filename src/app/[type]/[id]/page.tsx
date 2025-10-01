@@ -2,7 +2,8 @@
 
 import { useParams } from "next/navigation";
 import { useBreed, useBreedImages } from "@/hooks/useBreeds";
-
+import { BreedImage } from "@/types/breed";
+import Image from "next/image";
 export default function BreedPage() {
   const { id, type } = useParams() as { id: string; type: "dog" | "cat" };
   const { data: breed, isLoading } = useBreed(type, id);
@@ -26,8 +27,8 @@ export default function BreedPage() {
       {breed.description && <p className="mb-4">{breed.description}</p>}
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {images?.map((img: any, i: number) => (
-          <img
+        {images?.map((img: BreedImage, i: number) => (
+          <Image
             key={i}
             src={img.url}
             alt={breed.name}
