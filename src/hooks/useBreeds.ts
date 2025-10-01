@@ -1,14 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { dogApi, catApi } from "@/lib/api";
 import { Breed, DogApiBreed, CatApiBreed, BreedImage } from "@/types/breed";
-
-// Utility to pick random items
-function getRandomItems<T>(arr: T[], count: number): T[] {
-  const shuffled = [...arr].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-}
-
-// Single breed hook
+import getRandomItems from "@/adds/getRandomItems";
 export function useBreed(type: "dog" | "cat", id: string) {
   return useQuery<Breed | undefined>({
     queryKey: ["breed", type, id],
@@ -38,7 +31,7 @@ export function useBreed(type: "dog" | "cat", id: string) {
   });
 }
 
-// Fetch all breeds (for autocomplete)
+
 export function useAllBreeds() {
   return useQuery<Breed[]>({
     queryKey: ["allBreeds"],
@@ -87,7 +80,7 @@ export function useAllBreeds() {
   });
 }
 
-// Random 6 dogs
+
 export function useDogBreeds() {
   return useQuery<Breed[]>({
     queryKey: ["dogBreeds"],
@@ -120,7 +113,7 @@ export function useDogBreeds() {
   });
 }
 
-// Random 6 cats
+
 export function useCatBreeds() {
   return useQuery<Breed[]>({
     queryKey: ["catBreeds"],
@@ -154,7 +147,7 @@ export function useCatBreeds() {
   });
 }
 
-// Breed images
+
 export function useBreedImages(type: "dog" | "cat", breedId: string) {
   return useQuery<BreedImage[]>({
     queryKey: ["breedImages", type, breedId],
